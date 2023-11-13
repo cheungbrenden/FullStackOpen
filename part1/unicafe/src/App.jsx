@@ -55,7 +55,7 @@ const Button = ({onClick, text}) => {
 const Statistics = ({good, bad, neutral}) => {
   const all = good + bad + neutral
   const average = (good - bad) / all
-  const positive = good / all * 100 
+  const positive = good / all * 100 + ' %'
 
   if (all == 0) {
     return (<p>No feedback given</p>)
@@ -79,22 +79,14 @@ const Statistics = ({good, bad, neutral}) => {
 
 const StatisticLine = ({text, value}) => {
 
-  if (text == "positive") {
-    return (
+  return (
+    <tbody>
       <tr>
         <td>{text}</td>
-        <td>{value} %</td>
+        <td>{value}</td>
       </tr>
-    )
-  }
-
-  return (
-    <tr>
-      <td>{text}</td>
-      <td>{value}</td>
-    </tr>
+    </tbody>
   )
-
 
 }
 

@@ -24,8 +24,15 @@ const App = () => {
   }
 
   const randomAnecdote = () => {
-    const randomNumber = Math.floor(Math.random() * anecdotes.length)
-    setSelected(randomNumber)
+    while (true) {
+      const randomNumber = Math.floor(Math.random() * anecdotes.length)
+
+      if (selected != randomNumber) {
+        setSelected(randomNumber)
+        break;
+      }
+    }
+
   }
 
 
