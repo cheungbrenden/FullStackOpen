@@ -77,10 +77,10 @@ app.get("/api/persons/:id", (request, response, next) => {
                 response.status(404).end()
             }
         })
-        .catch(error => {next(error)})
+        .catch(error => { next(error) })
 })
 
-app.put("/api/persons/:id", (request, response) => {
+app.put("/api/persons/:id", (request, response, next) => {
 
     const body = request.body
 
@@ -114,7 +114,7 @@ const errorHandler = (error, request, response, next) => {
     console.error(error.message)
 
     if (error.name === 'CastError') {
-        return response.status(400).send({error: 'malformatted id' })
+        return response.status(400).send({ error: 'malformatted id' })
     }
     next(error)
 }
