@@ -17,32 +17,32 @@ const personSchema = new mongoose.Schema({
     number: String,
 })
 
-const Person = mongoose.model("Person", personSchema)
+const Person = mongoose.model('Person', personSchema)
 
 
-if (process.argv.length == 3) {
+if (process.argv.length === 3) {
     // get the info
-    
+
     Person.find({}).then(result => {
-        console.log("phonebook:")
+        console.log('phonebook:')
         result.forEach(element => {
             console.log(`${element.name} ${element.number}`)
-        });
+        })
         mongoose.connection.close()
     })
 }
 
-if (process.argv.length == 5) {
+if (process.argv.length === 5) {
     // save info into db
     const addedName = process.argv[3]
     const addedNumber = process.argv[4]
-    
+
     const person = new Person({
         name: addedName,
         number: addedNumber
     })
 
-    person.save().then(result => {
+    person.save().then(() => {
         console.log(`added ${addedName} number ${addedNumber} to phonebook`)
         mongoose.connection.close()
     })
