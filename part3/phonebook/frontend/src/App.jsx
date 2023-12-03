@@ -26,7 +26,6 @@ const App = () => {
 
   const addPerson = (e) => {
     e.preventDefault()
-
     const searchDuplicatePerson = persons.find((person) => person.name == newName)
 
     if (searchDuplicatePerson != null) {
@@ -45,22 +44,27 @@ const App = () => {
             }, 5000)
           })
           .catch(error => {
-            console.log("does this wok?")
-            setMessage(`Information of ${newName} has already been removed from the server`)
+            if (error.name === 'TypeError') {
+              setMessage(`Information of ${newName} has already been removed from the server`)
+            }
+            else {
+              setMessage(error.response.data.error)
+            }
+
+            
             setType("fail")
             setTimeout(() => {
               setMessage(null)
               setType(null)
             }, 5000)
-            
           })
       }
-
     }
 
     else if (persons.some((person) => person.number == newNumber)) {
       window.alert(`${newNumber} is already added to the phonebook`)
     }
+
 
     else {
 
@@ -78,9 +82,15 @@ const App = () => {
             setType(null)
           }, 5000)
         })
-
-
-
+        .catch(error => {
+          // console.log(`This is my error messageaoweufuhowei: ${error.response.data.error}`)
+          setMessage(error.response.data.error)
+          setType("fail")
+          setTimeout(() => {
+            setMessage(null)
+            setType(null)
+          }, 5000)
+        })
     }
   }
 
@@ -92,8 +102,6 @@ const App = () => {
 
       setPersons(persons.filter(person => person.id !== deletedPerson.id))
     }
-
-
   }
 
 
@@ -116,7 +124,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Notification message={message} type={type} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
-    
+
       <h2>add a new</h2>
 
       <PersonForm
