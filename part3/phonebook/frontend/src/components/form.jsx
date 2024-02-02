@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 const PersonForm = ({addPerson, newName, newNumber, handlePersonChange, handleNumberChange}) => {
     
     return (
